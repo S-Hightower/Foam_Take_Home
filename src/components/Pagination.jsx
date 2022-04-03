@@ -3,12 +3,14 @@ import {Link} from 'react-router-dom';
 
 const Pagination = ({ containersPerPage, totalContainers, paginate }) => {
     const pageNumbers = [];
+
     for (let i = 1; i <= Math.ceil(totalContainers / containersPerPage); i++) {
         pageNumbers.push(i);
     }
 
 
-        return <nav className='d-flex justify-content-center'>
+        return (
+            <nav>
             <ul className="pagination">
                 {pageNumbers.map(number => (
                     <li key={number} className='page-item'>
@@ -18,8 +20,8 @@ const Pagination = ({ containersPerPage, totalContainers, paginate }) => {
                     </li>
                 ))}
             </ul>
-
-        </nav>;
+        </nav>
+        );
 };
 
 export default Pagination;
