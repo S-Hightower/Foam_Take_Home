@@ -16,6 +16,14 @@ function App() {
           <Main />
       </Route>
 
+      <Route exact path="/foaming">
+          <Foaming />
+      </Route>
+
+      <Route exact path="/nonfoaming">
+          <NonFoaming />
+      </Route>
+
       </Switch>
     </div>
   );

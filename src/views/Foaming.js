@@ -1,30 +1,53 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import Pagination from '../components/Pagination';
+import { Link } from 'react-router-dom';
 
-import FoamingContainersDisplay from '../components/FoamingContainerDisplay';
+const Foaming = () => {
 
-const Foaming = (props) => {
-
-    const {id} = useParams();
     const [containers, setContainers] = useState([]);
-    const [loaded, setLoaded] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [containersPerPage] = useState(30);
 
     useEffect(() => {
         axios.get('http://localhost:8000/foaming')
             .then(res => {
                 setContainers(res.data);
-                setLoaded(true);
                 console.log(res.data);
             })
             .catch(error => console.log(error));
-    }, [id]);
+    }, []);
 
-    return(
-        <div>
-            {loaded && 
-            <FoamingContainersDisplay containers = {containers}/>}
-        </div>
+    const indexOfLastContainer = currentPage * containersPerPage;
+    const indexOfFirstContainer = indexOfLastContainer - containersPerPage;
+    const currentContainers = containers.slice(indexOfFirstContainer, indexOfLastContainer)
+    const paginate = pageNumber => setCurrentPage(pageNumber)
+
+    return (
+        <div className='container-sm mt-3 mb-5'>
+            <div className='d-flex justify-content-evenly'>
+                <Link to={"/"} className='btn btn btn-success btn-sm mb-3' role='button'>Unclassified Containers</Link>
+                <Link to={"/nonfoaming"} className='btn btn btn-success btn-sm mb-3' role='button'>Non-Foaming Containers</Link>
+            </div>
+            <div>
+                <h1>Foaming Containers</h1>
+            </div>
+            <table className='table table-striped table-bordered border-success'>
+                {currentContainers.map((container, index) => {
+                        return (
+                            <tbody key={index}>
+                                <tr>
+                                    <td>
+                                        <img src={container.url} width="550" height="500"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        )
+                    }
+                )}
+            </table>
+                <Pagination totalContainers={containers.length} containersPerPage={containersPerPage} paginate={paginate}/>
+        </div>//container
     )
 };
 

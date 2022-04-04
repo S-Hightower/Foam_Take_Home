@@ -1,24 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import Pagination from '../components/Pagination';
-import {Link} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Main = () => {
 
     const [containers, setContainers] = useState([]);
-    const [loaded, setLoaded] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [containersPerPage] = useState(30);
+    const history = useHistory();
 
     useEffect(() => {
         axios.get('http://localhost:8000/')
             .then(res => {
                 setContainers(res.data);
-                setLoaded(true);
                 console.log(res.data);
             })
             .catch(error => console.log(error));
     }, []);
+
+    const handleFoamingSubmit = (e, data) => {
+
+        axios.post('http://localhost:8000/foaming', data)
+            .then(res => {
+                console.log(res.data)
+                history.push('/')
+            })
+            .catch(error => console.log(error));
+    };
+
+    const handleNonFoamingSubmit = (e, data) => {
+
+        axios.post('http://localhost:8000/nonfoaming', data)
+            .then(res => {
+                console.log(res.data)
+                history.push('/')
+            })
+            .catch(error => console.log(error));
+    };
 
     const indexOfLastContainer = currentPage * containersPerPage;
     const indexOfFirstContainer = indexOfLastContainer - containersPerPage;
@@ -32,7 +51,7 @@ const Main = () => {
                 <Link to={"/nonfoaming"} className='btn btn btn-success btn-sm mb-3' role='button'>Non-Foaming Containers</Link>
             </div>
             <div>
-                <h1>Unclassified Images</h1>
+                <h1>Unclassified Containers</h1>
             </div>
             <table className='table table-striped table-bordered border-success'>
                 {currentContainers.map((container, index) => {
@@ -40,9 +59,9 @@ const Main = () => {
                             <tbody key={index}>
                                 <tr>
                                     <td>
-                                        <button className='btn btn btn-success btn-sm me-3'>Foaming!</button>
+                                        <input type='submit' handleFoamingSubmit={handleFoamingSubmit} className='btn btn btn-success btn-sm me-5'value='Foaming!'/>
                                         <img src={container.url} width="550" height="500"/>
-                                        <button className='btn btn btn-success btn-sm ms-3'>Not Foaming!</button>
+                                        <input type='submit' handleNonFoamingSubmit={handleNonFoamingSubmit} className='btn btn btn-success btn-sm ms-5'value='Not Foaming!'/>
                                     </td>
                                 </tr>
                             </tbody>
