@@ -19,26 +19,6 @@ const Main = () => {
             .catch(error => console.log(error));
     }, []);
 
-    const handleFoamingSubmit = (e, data) => {
-
-        axios.post('http://localhost:8000/foaming', data)
-            .then(res => {
-                console.log(res.data)
-                history.push('/')
-            })
-            .catch(error => console.log(error));
-    };
-
-    const handleNonFoamingSubmit = (e, data) => {
-
-        axios.post('http://localhost:8000/nonfoaming', data)
-            .then(res => {
-                console.log(res.data)
-                history.push('/')
-            })
-            .catch(error => console.log(error));
-    };
-
     const indexOfLastContainer = currentPage * containersPerPage;
     const indexOfFirstContainer = indexOfLastContainer - containersPerPage;
     const currentContainers = containers.slice(indexOfFirstContainer, indexOfLastContainer)
@@ -59,9 +39,9 @@ const Main = () => {
                             <tbody key={index}>
                                 <tr>
                                     <td>
-                                        <input type='submit' handleFoamingSubmit={handleFoamingSubmit} className='btn btn btn-success btn-sm me-5'value='Foaming!'/>
+                                        
                                         <img src={container.url} width="550" height="500"/>
-                                        <input type='submit' handleNonFoamingSubmit={handleNonFoamingSubmit} className='btn btn btn-success btn-sm ms-5'value='Not Foaming!'/>
+                                        
                                     </td>
                                 </tr>
                             </tbody>
