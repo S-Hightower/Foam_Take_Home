@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import Pagination from '../components/Pagination';
 
-const Main = () => {
+const Main = (props) => {
 
+    const {id} = useParams();
     const [containers, setContainers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [containersPerPage] = useState(5);
@@ -40,6 +41,13 @@ const Main = () => {
                             <tr>
                                 <td>
                                     <img src={container.url} width="550" height="500" alt='' />
+                                </td>
+                                <td>
+                                    <p>Status: {container.status} </p>
+                                    <Link to={`/status/` + container._id}>
+                                        <p>Update status?</p>
+                                    </Link>
+
                                 </td>
                             </tr>
                         </tbody>
