@@ -7,10 +7,10 @@ const NonFoaming = () => {
 
     const [containers, setContainers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [containersPerPage] = useState(30);
+    const [containersPerPage] = useState(5);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/nonfoaming')
+        axios.get('http://localhost:8000/notfoaming')
             .then(res => {
                 setContainers(res.data);
                 console.log(res.data);
@@ -39,6 +39,12 @@ const NonFoaming = () => {
                                 <tr>
                                     <td>
                                         <img src={container.url} width="550" height="500"/>
+                                    </td>
+                                    <td>
+                                    <p>Status: {container.status} </p>
+                                    <Link to={`/status/` + container._id}>
+                                        <p>View Details</p>
+                                    </Link>
                                     </td>
                                 </tr>
                             </tbody>

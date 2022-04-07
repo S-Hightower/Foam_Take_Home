@@ -6,6 +6,8 @@ import { Route, Switch } from 'react-router-dom'
 import Main from './views/Main';
 import Foaming from './views/Foaming';
 import NonFoaming from './views/NonFoaming';
+import Update from './views/Update';
+import Detail from './views/Detail';
 
 function App() {
   return (
@@ -20,8 +22,16 @@ function App() {
           <Foaming />
       </Route>
 
-      <Route exact path="/nonfoaming">
+      <Route exact path="/notfoaming">
           <NonFoaming />
+      </Route>
+
+      <Route exact path="/status/:id">
+          <Detail />
+      </Route>
+
+      <Route exact path="/status/:id/edit">
+          <Update />
       </Route>
 
       </Switch>

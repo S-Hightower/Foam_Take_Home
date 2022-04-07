@@ -7,7 +7,7 @@ const Foaming = () => {
 
     const [containers, setContainers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [containersPerPage] = useState(30);
+    const [containersPerPage] = useState(5);
 
     useEffect(() => {
         axios.get('http://localhost:8000/foaming')
@@ -27,7 +27,7 @@ const Foaming = () => {
         <div className='container-sm mt-3 mb-5'>
             <div className='d-flex justify-content-evenly'>
                 <Link to={"/"} className='btn btn btn-success btn-sm mb-3' role='button'>Unclassified Containers</Link>
-                <Link to={"/nonfoaming"} className='btn btn btn-success btn-sm mb-3' role='button'>Non-Foaming Containers</Link>
+                <Link to={"/notfoaming"} className='btn btn btn-success btn-sm mb-3' role='button'>Non-Foaming Containers</Link>
             </div>
             <div>
                 <h1>Foaming Containers</h1>
@@ -39,6 +39,12 @@ const Foaming = () => {
                                 <tr>
                                     <td>
                                         <img src={container.url} width="550" height="500"/>
+                                    </td>
+                                    <td>
+                                    <p>Status: {container.status} </p>
+                                    <Link to={`/status/` + container._id}>
+                                        <p>View Details</p>
+                                    </Link>
                                     </td>
                                 </tr>
                             </tbody>

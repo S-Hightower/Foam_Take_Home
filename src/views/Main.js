@@ -6,7 +6,7 @@ import Pagination from '../components/Pagination';
 
 const Main = (props) => {
 
-    const {id} = useParams();
+    const {id, url} = useParams();
     const [containers, setContainers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [containersPerPage] = useState(5);
@@ -29,7 +29,7 @@ const Main = (props) => {
         <div className='container-sm mt-3 mb-5'>
             <div className='d-flex justify-content-evenly'>
                 <Link to={"/foaming"} className='btn btn btn-success btn-sm mb-3' role='button'>Foaming Containers</Link>
-                <Link to={"/nonfoaming"} className='btn btn btn-success btn-sm mb-3' role='button'>Non-Foaming Containers</Link>
+                <Link to={"/notfoaming"} className='btn btn btn-success btn-sm mb-3' role='button'>Non-Foaming Containers</Link>
             </div>
             <div>
                 <h1>Unclassified Containers</h1>
@@ -45,9 +45,8 @@ const Main = (props) => {
                                 <td>
                                     <p>Status: {container.status} </p>
                                     <Link to={`/status/` + container._id}>
-                                        <p>Update status?</p>
+                                        <p>View Details</p>
                                     </Link>
-
                                 </td>
                             </tr>
                         </tbody>
