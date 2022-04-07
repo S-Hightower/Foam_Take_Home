@@ -3,7 +3,7 @@
 <!-- ABOUT THE PROJECT -->
 ## Built With
 
-* MERN Stack( React, Express, MongoDB, Node)
+* MERN Stack( React, Express, MongoDB, Node )
 * Bootstrap
 * Axios
 * Cors
