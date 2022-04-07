@@ -7,7 +7,7 @@
 * Bootstrap
 * Axios
 * Cors
-* node-mongo-seeds
+* node-mongo-seeds <a>https://github.com/toymachiner62/node-mongo-seeds#readme</a>
 
 ##Demo Link
 
